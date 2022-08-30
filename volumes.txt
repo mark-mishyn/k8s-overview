@@ -1,0 +1,32 @@
+Volume Types
+
+emptyDir -- If the Pod is terminated, the content of emptyDir is deleted forever.
+
+hostPath -- shares a directory between host and Pod. If the Pod is terminated, data is still available on the host.
+
+awsElasticBlockStore -- can mount an AWS EBS Volume into a Pod.
+
+secret -- pass sensitive information, such as passwords, to Pods.
+
+configMap -- provide configuration data or shell commands into a Pod.
+
+persistentVolumeClaim -- attach a PersistentVolume to a Pod using a persistentVolumeClaim.
+
+A PersistentVolumeClaim (PVC) is a request for storage by a user.
+There are three access modes:
+- ReadWriteOnce (read-write by a single node),
+- ReadOnlyMany (read-only by many nodes),
+- and ReadWriteMany (read-write by many nodes)
+
+Once a suitable PersistentVolume is found, it is bound to a PersistentVolumeClaim.
+After a successful bound, the PersistentVolumeClaim resource can be used by the containers of the Pod.
+
+When pod stopped the attached PersistentVolumes can be released. PersistentVolumes can then be:
+- reclaimed (for an admin to verify and/or aggregate data),
+- deleted (both data and volume are deleted)
+- recycled for future usage (only data is deleted)
+
+To determine one of these options need to set persistentVolumeReclaimPolicy
+
+
+

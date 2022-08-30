@@ -1,0 +1,44 @@
+Kubernetes is an open-source container orchestration system for automating software deployment, scaling, and management.
+
+What kubernetes can do:
+- Expose a container using the DNS name or IP
+- Load balancing
+- Allows you to automatically mount a storage system
+- Automated deployment and rollbacks
+- Automatic bin packing
+- Containers health check and management
+- Secret and configuration management
+
+
+Kubernetes is a cluster with one or more control plane nodes and one or more worker nodes.
+To communicate with Kubernetes cluster users use CLI, Web UI or API.
+
+To persist the Kubernetes cluster's state, all cluster configuration data is saved to a distributed key-value store.
+
+All the administrative tasks are coordinated by the kube-apiserver.
+
+The API Server process requests from users: API Server reads the Kubernetes cluster's current state from the key-value store, and after a call's execution, the resulting state of the Kubernetes cluster is saved in the key-value store for persistence.
+
+The controller managers are components to regulate the state of the Kubernetes cluster.
+
+etcd -- key-value data storage used to persist a Kubernetes state
+
+A worker node provides a running environment for client applications.
+
+A worker node provides a running environment for client applications. these applications are encapsulated in Pods. Pods are scheduled on worker nodes, where they find required compute, memory and storage resources to run.
+
+A worker node has the following components:
+- Container Runtime
+- Node Agent - kubelet
+- Proxy - kube-proxy
+
+Kubernetes requires a container runtime on node where a Pod and its containers are to be scheduled.
+Kubernetes supports several container runtimes:
+- CRI-O
+- containerd
+- Docker
+
+
+The kubelet is an agent running on each node, control plane and workers. It receives Pod definitions from the API Server and interacts with container runtime on node to run Pod's containers. It also monitors health and resources of Pod's containers.
+
+The kube-proxy is the network agent responsible for dynamic updates and maintenance of all networking rules.

@@ -1,0 +1,43 @@
+---NODES---
+Nodes are Virtual Machines or Containers.
+Node is managed with kubelet and kube-proxy and node hosts a container runtime (for example Docker).
+There are two distinct types of nodes - control plane and worker. But node can be mixed -- control pane + worker.
+Minikube is using kubeadm bootstrapping tool to init the control plane and addi nodes.
+The control plane nodes run: kubelet and kube-proxy + API Server, Scheduler, Controller Managers, etcd + addons
+Worker nodes run: kubelet and kube-proxy + container runtime + addons
+
+---NAMESPACES---
+Namespaces -- virtual sub-clusters. The names of the resources/objects created inside a Namespace are unique.
+Generally there are 4 default namespaces -- kube-system, kube-public, kube-node-lease, and default.
+The "default" Namespace contains the objects and resources created by administrators and developers.
+
+---PODS---
+A Pod is the smallest Kubernetes workload object. Pod represents a single application instance.
+A Pod is a logical collection of one or more containers.
+Each Pod has 1 IP address.
+
+
+---REPLICA SET---
+ReplicaSet allows to scale number of Pods running application container image.
+For example if replicaset detects that current pods count is less than desired pods cound, replicaset requests Pod creation.
+
+
+---DEPLOYMENTS---
+Deployments manage the creation, deletion, and updates of Pods.
+A Deployment automatically creates a ReplicaSet, which then creates a Pod.
+A rolling update is triggered when we update specific properties of the Pod Template for a deployment.
+ReplicaSets state changes recorded as Revisions.
+Deployment can be rolled back to a prior Revision.
+
+
+---DAEMONSETS---
+A DaemonSet ensures that all (or some) Nodes run a copy of a Pod.
+When node is added to the cluster, a Pod from a given DaemonSet is automatically placed on it.
+Comparing to ReplicaSet: when using replica set it is required to specify number of replicas,
+but with daemon set, pods' replicas cound is unknown because we don't know yet how many nodes we will have.
+Fits for collecting logging/monitoring info from every Node of a cluster.
+
+
+---SERVICE---
+Service allows communication between internal microservices or with the external world.
+A Service offers a single DNS entry for applications (regardless of the number of app replicas).

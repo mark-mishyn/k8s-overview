@@ -1,0 +1,3 @@
+An Ingress is a collection of rules that allow inbound connections to reach the cluster Services.
+
+With Ingress, users do not connect directly to a Service. Users reach the Ingress endpoint, and, from there, the request is forwarded to the desired Service.

@@ -1,0 +1,39 @@
+Service logically groups Pods and defines a policy to access them.
+This grouping is achieved via Labels and Selectors.
+Labels and Selectors use a key-value pair format.
+For example: one Pod has "app:frontend" label and another has "app:db".
+
+Service is logical grouping. For example: frontend-svc, and db-svc,
+and they have the app==frontend and the app==db Selectors.
+
+Services can expose single Pods, ReplicaSets, Deployments, DaemonSets, and StatefulSets.
+
+By default, each Service receives an IP address routable only inside the cluster, known as ClusterIP.
+So user/client connects to a Service by ClusterIP and Service sends traffic to Pods attached to it.
+
+kube-proxy is a daemon running on each node. It reflects the services defined in the cluster and
+manages the rules to load-balance requests to a service's pods.
+
+There are 2 traffic policies:
+Cluster -- allows kube-proxy to target all Endpoints.
+Local -- makes kube-proxy to route to ready endpoints from the same Node.
+
+DNS
+Kubernetes has an add-on for DNS, which creates a DNS record for each Service and its format is my-svc.my-namespace.svc.cluster.local. Services within the same Namespace find other Services just by their names. If we add a Service redis-master in my-ns Namespace, all Pods in the same my-ns Namespace lookup the Service just by its name, redis-master. Pods from other Namespaces, such as test-ns, lookup the same Service by adding the respective Namespace as a suffix, such as redis-master.my-ns
+
+
+---ServiceType--
+ClusterIP ServiceType:
+Default ServiceType.
+A Service receives a Virtual IP address, known as its ClusterIP.
+This Virtual IP address is used for communicating with Service and is it visible only in the cluster
+
+NodePort ServiceType:
+In addition to a ClusterIP, exposes the Service on each Node's IP at a static port (the NodePort).
+A ClusterIP Service, to which the NodePort Service routes, is automatically created.
+You'll be able to contact the NodePort Service, from outside the cluster, by requesting <NodeIP>:<NodePort>.
+
+LoadBalancer ServiceType:
+- NodePort and ClusterIP are automatically created, and the external load balancer will route to them.
+- The Service is exposed at a static port on each worker node.
+- The Service is exposed externally using the underlying cloud provider's load balancer feature.
